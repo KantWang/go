@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  app:
+    image: golang:1.16-buster
+    command: sh -c "go build ./cmd/objects && go build ./cmd/objects-cli"
+    ports:
+      - 8080:8080
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      DBINFO: host=pgsql-dev user=kantwang password=Rhd93 dbname=objects sslmode=disable
+
+  postgres:
+    image: postgres:latest
+    volumes:
+      - object-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: Rhd93
+      POSTGRES_USER: kantwang
+      POSTGRES_DB: objects
+
+volumes:
+  object-db:

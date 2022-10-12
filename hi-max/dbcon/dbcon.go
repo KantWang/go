@@ -19,11 +19,13 @@ func GetDB() *sql.DB {
 		var err error
 		db, err = sql.Open("postgres", os.Getenv("DB_INFO"))
 		if err != nil {
+			log.Print("aaa")
 			log.Fatal(err.Error())
 		}
 
 		err = db.Ping()
 		if err != nil {
+			log.Print(os.Getenv("DB_INFO"))
 			log.Fatal(err.Error())
 		}
 	})
